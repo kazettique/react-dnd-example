@@ -12,5 +12,4 @@ export const TASK_STATUS_NAME = {
 
 export const ITEM_TYPE = {
   TASK: 'task',
-  COLUMN: 'column'
 }

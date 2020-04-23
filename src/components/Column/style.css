@@ -7,15 +7,19 @@
   padding-top: 10px;
   padding-bottom: 100px;
   height: 60vh;
+  /* display: flex; */
+  /* flex-direction: column; */
 }
 
-.column[data-is-droppable="true"] {
+/* .column[data-is-droppable="true"] {
   border: 1px dashed rgb(042, 105, 199);
   background: rgb(233, 240, 249);
-}
+} */
 
 .column[data-is-over="true"] {
-  background: rgb(137, 187, 242);
+  /* background: rgb(137, 187, 242); */
+  border: 1px dashed rgb(042, 105, 199);
+
 }
 
 .column-title {

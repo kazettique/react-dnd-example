@@ -6,7 +6,7 @@ const initialTaskLists = [
   ],
   [
     { id: 104, content: 'Fix IE bugs' },
-    { id: 105, content: 'Study React-beautiful-DnD' },
+    { id: 105, content: 'Study React-DnD' },
   ],
   [
     { id: 106, content: 'Write testing' }
