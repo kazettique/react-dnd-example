@@ -56,7 +56,7 @@ Collectors 收集 React 所需要資訊，包括收集函式（Collector Functio
 
 定義拖曳（來源）元件（Drag Sources）及放置（目標）元件（Drop Target）的範圍
 
-```=javascript
+```javascript
 import Backend from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
 
@@ -74,7 +74,7 @@ export default class YourApp {
 ### 拖曳（來源）元件（Drag Sources）:
 綁定拖曳的元件、定義拖曳的行為
 
-```=javascript
+```javascript
 import { useDrag } from 'react-dnd'
 
 function DraggableComponent(props) {
@@ -102,7 +102,7 @@ function DraggableComponent(props) {
 ### 放置（目標）元件（Drop Target）:
 綁定放置的元件、定義放置的行為
 
-```=javascript
+```javascript
 import { useDrop } from 'react-dnd'
 function myDropTarget(props) {
     const [collectedDropProps, drop] = useDrop({
