@@ -1,0 +1,15 @@
+.task {
+  margin: 10px;
+  height: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: grab;
+  background: #ffffff;
+  transition: .3s;
+  padding: 10px;
+}
+
+.task:hover {
+  background: #bac4d3;
+}

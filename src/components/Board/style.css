@@ -1,0 +1,8 @@
+.board {
+  margin: 50px;
+  display: flex;
+  width: auto;
+  background: #ffffff;
+  border: 1px dashed #000000;
+  justify-content: center;
+}
