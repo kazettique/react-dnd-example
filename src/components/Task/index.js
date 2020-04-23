@@ -1,41 +1,18 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import './style.css'
-import { useDrag } from 'react-dnd'
-import { ITEM_TYPE } from '../../constants'
 
 export const propTypes = {
-  taskData: PropTypes.object,
-  taskIndex: PropTypes.number,
-  columnName: PropTypes.string,
+  task: PropTypes.object,
 }
 
 function Task(props) {
-  const { taskData, taskIndex, columnName } = props
-  const { content, id } = taskData
-
-  const taskRef = useRef(null)
-
-  const [, drag, preview] = useDrag({
-    item: {
-      id: taskData.id,
-      type: ITEM_TYPE.COLUMN,
-      taskIndex,
-      currentColumn: columnName,
-    },
-    // begin: monitor => { },
-    // end: (item, monitor) => { },
-    // canDrag: monitor => { },
-    isDragging: monitor => monitor.getItem().id === taskData.id,
-    collect: monitor => ({
-      isDragging: Boolean(monitor.isDragging()),
-      didDrop: Boolean(monitor.didDrop()),
-    }),
-  })
-
+  const { task } = props
+  const { content, id } = task
+  // console.log(task)
 
   return (
-    <div className='task' ref={preview(drag(taskRef))}>
+    <div className='task'>
       <strong>[IT-{id}]</strong>
       <p>{content}</p>
     </div>

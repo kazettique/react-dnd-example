@@ -2,44 +2,31 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Task from '../Task'
 import './style.css'
-import { useDrop } from 'react-dnd'
-import { ITEM_TYPE } from '../../constants'
 import TaskSortable from '../TaskSortable/'
+import TaskDraggable from '../TaskDraggable'
 
 export const propTypes = {
   columnList: PropTypes.array,
+  columnIndex: PropTypes.number,
   columnName: PropTypes.string,
-  changeTaskStatus: PropTypes.func,
+  // changeTaskStatus: PropTypes.func,
   sortTaskList: PropTypes.func,
 }
 
 function Column(props) {
-  const { columnList = [], columnName = "", changeTaskStatus, sortTaskList } = props
-
-  const [collectedProps, drop] = useDrop({
-    accept: [ITEM_TYPE.COLUMN, ITEM_TYPE.TASK],
-    drop: (item, monitor) => {
-      if (item.currentColumn === columnName) return
-      changeTaskStatus({ moveTask: item, targetColumn: columnName })
-    },
-    // hover: (item, monitor) => { },
-    // canDrop: (item, monitor) => { },
-    collect: monitor => ({
-      isOver: Boolean(monitor.isOver()),
-      canDrop: Boolean(monitor.canDrop())
-    }),
-  })
-
-  const { isOver, canDrop } = collectedProps
+  const { columnList = [], columnIndex, columnName = "", sortTaskList } = props
+  // console.log(columnList)
 
   return (
-    <div className='column' ref={drop} data-is-over={isOver && canDrop} data-is-droppable={canDrop}>
+    <div className='column'>
       <h3 className='column-title'>{columnName}</h3>
       {columnList.map((task, taskIndex) => {
         return (
-          <TaskSortable key={task.id} taskData={task} taskIndex={taskIndex} sortTaskList={sortTaskList} columnName={columnName}>
-            <Task key={task.id} taskData={task} taskIndex={taskIndex} columnName={columnName} />
-          </TaskSortable>
+          <TaskDraggable key={task.id}>
+            <TaskSortable taskIndex={taskIndex} columnIndex={columnIndex} sortTaskList={sortTaskList} >
+              <Task task={task} />
+            </TaskSortable>
+          </TaskDraggable>
         )
       })}
     </div>

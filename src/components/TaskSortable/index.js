@@ -5,21 +5,20 @@ import { ITEM_TYPE } from '../../constants'
 
 export const propTypes = {
   children: PropTypes.node,
-  taskData: PropTypes.object,
   taskIndex: PropTypes.number,
-  columnName: PropTypes.string,
+  columnIndex: PropTypes.number,
   sortTaskList: PropTypes.func,
 }
 
 
 function TaskSortable(props) {
-  const { children, taskData, taskIndex, sortTaskList, columnName } = props
+  const { children, taskIndex, columnIndex, sortTaskList } = props
 
-  const itemRef = useRef(null)
+  const taskRef = useRef(null)
 
   const [, drag, preview] = useDrag({
     item: {
-      id: taskData.id,
+      // id: taskData.id,
       type: ITEM_TYPE.COLUMN,
       taskIndex,
     },
@@ -37,7 +36,7 @@ function TaskSortable(props) {
     accept: ITEM_TYPE.COLUMN,
     hover: (item, monitor) => {
       // 異常處理判斷
-      if (!itemRef.current) return
+      if (!taskRef.current) return
       if (!monitor.canDrop()) return
 
       // 拖拽目標的Index
@@ -49,7 +48,7 @@ function TaskSortable(props) {
       if (dragTaskIndex === dropTaskIndex) return {}
 
       // 執行交換位置的方法
-      sortTaskList({ dragTaskIndex, dropTaskIndex, columnName })
+      sortTaskList({ dragTaskIndex, dropTaskIndex, columnIndex })
       item.taskIndex = dropTaskIndex
     },
     // drop: (item, monitor) => {},
@@ -66,12 +65,14 @@ function TaskSortable(props) {
     }),
   })
 
-  drag(drop(itemRef))
+  drag(drop(taskRef))
 
   return (
-    <div ref={preview(itemRef)}>
-      {children}
-    </div>
+    <>
+      <div ref={preview(taskRef)}>
+        {children}
+      </div>
+    </>
   )
 }
 
