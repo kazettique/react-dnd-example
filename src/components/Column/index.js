@@ -19,22 +19,11 @@ function Column(props) {
   const [collectedProps, drop] = useDrop({
     accept: [ITEM_TYPE.COLUMN, ITEM_TYPE.TASK],
     drop: (item, monitor) => {
-      // console.log(item)
-      // console.log(monitor.getItem())
       if (item.currentColumn === columnName) return
       changeTaskStatus({ moveTask: item, targetColumn: columnName })
     },
     // hover: (item, monitor) => { },
-    // canDrop: (item, monitor) => {
-    //   console.log(item)
-    //   console.log(monitor.getItem())
-      // return item.currentColumn !== columnName
-      // const dragTaskIndex = item.taskIndex
-      // const dropTaskIndex = taskIndex
-      // 若 hover 為自己，則 canDrop 設為 false，不顯示 DnD 插入線
-      // const isMySelf = dragTaskIndex === dropTaskIndex
-      // return !isMySelf
-    // },
+    // canDrop: (item, monitor) => { },
     collect: monitor => ({
       isOver: Boolean(monitor.isOver()),
       canDrop: Boolean(monitor.canDrop())
@@ -42,7 +31,6 @@ function Column(props) {
   })
 
   const { isOver, canDrop } = collectedProps
-  // console.log(canDrop)
 
   return (
     <div className='column' ref={drop} data-is-over={isOver && canDrop} data-is-droppable={canDrop}>

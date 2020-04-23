@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import Column from '../Column'
 import { TASK_STATUS } from '../../constants'
 import './style.css'
@@ -19,28 +19,12 @@ function Board(props) {
     const currentColumnList = [...taskList[currentColumn]]
     const task = currentColumnList.splice(moveTask.taskIndex, 1)
     const newTargetColumn = [...taskList[targetColumn]]
-    // console.log(currentColumn)
     newTargetColumn.push(...task)
     setTaskList(prevState => ({
       ...prevState,
       [moveTask.currentColumn]: currentColumnList,
       [targetColumn]: newTargetColumn
     }))
-    // console.log(newTargetColumn)
-    // switch (taskCurrentStatus) {
-    //   case TASK_STATUS.TODO:
-    //     let currentList = [...taskList.taskCurrentStatus]
-    //     currentList.splice(taskCurrentIndex, 1)
-
-    //     break
-    //   case TASK_STATUS.IN_PROGRESS:
-    //     break
-    //   case TASK_STATUS.DONE:
-    //     break
-    //   default:
-    //     break
-    // }
-    // moveTask.status = targetStatus
   }
 
   const sortTaskList = ({ dragTaskIndex, dropTaskIndex, columnName }) => {

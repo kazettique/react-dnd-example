@@ -17,7 +17,7 @@ function TaskSortable(props) {
 
   const itemRef = useRef(null)
 
-  const [collectedDragProps, drag, preview] = useDrag({
+  const [, drag, preview] = useDrag({
     item: {
       id: taskData.id,
       type: ITEM_TYPE.COLUMN,
@@ -33,14 +33,9 @@ function TaskSortable(props) {
     }),
   })
 
-  const { isDragging } = collectedDragProps
-
-  const [collectedDropProps, drop] = useDrop({
+  const [, drop] = useDrop({
     accept: ITEM_TYPE.COLUMN,
     hover: (item, monitor) => {
-      // console.log(item.taskIndex)
-      // console.log(taskIndex)
-      
       // 異常處理判斷
       if (!itemRef.current) return
       if (!monitor.canDrop()) return
@@ -70,8 +65,6 @@ function TaskSortable(props) {
       canDrop: Boolean(monitor.canDrop()),
     }),
   })
-
-  const { isOver, canDrop } = collectedDropProps
 
   drag(drop(itemRef))
 
