@@ -1,5 +1,7 @@
 # React-DnD 簡單示範
 
+[範例連結](https://kazettique.github.io/react-dnd-example/)
+
 ## 基本概念
 
 ![basic concept](./public/basic_concept.png)
