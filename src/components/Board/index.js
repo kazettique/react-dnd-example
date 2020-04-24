@@ -1,12 +1,9 @@
-import React, { useState } from 'react'
-// import PropTypes from 'prop-types'
+import React, { useState, useEffect } from 'react'
 import Column from '../Column'
-// import { TASK_STATUS_NAME } from '../../constants'
 import './style.css'
 import { DndProvider } from 'react-dnd'
 import Backend from 'react-dnd-html5-backend'
 import { initialTaskLists } from '../../initialTasks'
-// import TaskDroppable from '../TaskDroppable'
 import { ContentContext } from '../../context'
 import _ from 'lodash'
 
@@ -14,9 +11,18 @@ export const propTypes = {}
 
 function Board(props) {
   const [taskList, setTaskList] = useState(initialTaskLists)
+  useEffect(() => { 
+    console.log('%c STATE %c taskList ',
+      'background:#35495e; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff',
+      'background:#61dafb; padding: 1px; border-radius: 0 3px 3px 0;  color: #35495e', taskList)
+  }
+  , [taskList])
+  
 
   const addToTaskList = ({ sourceTaskIndex, sourceColumnIndex, targetColumnIndex }) => {
-    // console.log('add')
+    console.log('%c FUNCTION CALL %c addToTaskList ',
+      'background:#35495e; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff',
+      'background:#BF6D65; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff')
     let newTaskList = _.cloneDeep(taskList)
     let task = newTaskList[sourceColumnIndex][sourceTaskIndex]
     newTaskList[sourceColumnIndex].splice(sourceTaskIndex, 1)
@@ -25,7 +31,9 @@ function Board(props) {
   }
 
   const insertToTaskList = ({ sourceTaskIndex, sourceColumnIndex, targetTaskIndex, targetColumnIndex }) => {
-    // console.log('insert')
+    console.log('%c FUNCTION CALL %c insertToTaskList ',
+      'background:#35495e; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff',
+      'background:#038C8C; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff')
     let newTaskList = _.cloneDeep(taskList)
     let task = newTaskList[sourceColumnIndex][sourceTaskIndex]
     newTaskList[sourceColumnIndex].splice(sourceTaskIndex, 1)
@@ -34,12 +42,14 @@ function Board(props) {
   }
 
   const sortTaskList = ({ sourceTaskIndex, targetTaskIndex, sourceColumnIndex }) => {
-    console.log('sort')
+    console.log('%c FUNCTION CALL %c sortTaskList ',
+      'background:#35495e; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff',
+      'background:#F2D785; padding: 1px; border-radius: 0 3px 3px 0;  color: #35495e')
     let newTaskList = _.cloneDeep(taskList)
-    let task = newTaskList[sourceColumnIndex][sourceTaskIndex]
     let currentTaskList = newTaskList[sourceColumnIndex]
-    currentTaskList.splice(sourceColumnIndex, 1)
-    currentTaskList = [...currentTaskList.slice(0, targetTaskIndex), task, ...currentTaskList.slice(targetTaskIndex)]
+    let task = currentTaskList[sourceTaskIndex]
+    currentTaskList[sourceTaskIndex] = currentTaskList[targetTaskIndex]
+    currentTaskList[targetTaskIndex] = task
     newTaskList[sourceColumnIndex] = currentTaskList
     setTaskList(newTaskList)
   }

@@ -25,9 +25,6 @@ function Task(props) {
       columnIndex,
       taskIndex,
     },
-    // begin: monitor => setIsFormItemDragging(true),
-    // end: (item, monitor) => setIsFormItemDragging(false),
-    // isDragging: (monitor) => {},
     collect: (monitor) => ({
       canDrag: Boolean(monitor.canDrag()),
       isDragging: Boolean(monitor.isDragging()),
@@ -39,7 +36,7 @@ function Task(props) {
 
   const [collectedDropProps, drop] = useDrop({
     accept: ITEM_TYPE.TASK,
-    drop: (item, monitor) => {
+    hover: (item, monitor) => {
       // 異常處理判斷
       if (!taskRef.current) return
       if (!monitor.canDrop()) return
@@ -49,7 +46,7 @@ function Task(props) {
       const targetColumnIndex = columnIndex
       const targetTaskIndex = taskIndex
 
-      // 如果拖拽目標和放置目標相同的話，停止執行
+      // 如果拖曳目標和放置目標相同的話，停止執行
       if (sourceColumnIndex === targetColumnIndex && sourceTaskIndex === targetTaskIndex) return {}
 
       if (sourceColumnIndex === targetColumnIndex) {
@@ -63,19 +60,8 @@ function Task(props) {
         })
       }
 
-      // item.itemIndex = hoverIndex
-    },
-    canDrop: (item, monitor) => {
-      const sourceColumnIndex = item.columnIndex
-      const sourceTaskIndex = item.taskIndex
-      const targetColumnIndex = columnIndex
-      const targetTaskIndex = taskIndex
-      // 若 hover 為自己，則 canDrop 設為 false，不顯示 DnD 插入線
-      const isMySelf = sourceColumnIndex === targetColumnIndex && sourceTaskIndex === targetTaskIndex
-      // 若 hover 為下一個 item，則 canDrop 設為 false，因 hover 的樣式為 border-top
-      const isTheNextOne = sourceColumnIndex === targetColumnIndex && sourceTaskIndex - targetTaskIndex === -1
-
-      return !(isMySelf || isTheNextOne)
+      item.columnIndex = targetColumnIndex
+      item.taskIndex = targetTaskIndex
     },
     collect: (monitor) => ({
       isOver: Boolean(monitor.isOver()),
@@ -84,12 +70,12 @@ function Task(props) {
     }),
   })
 
-  const { isOver, canDrop } = collectedDropProps
+  const { isOver } = collectedDropProps
 
   drag(drop(taskRef))
 
   return (
-    <div className="task" ref={preview(taskRef)} data-is-over={isOver && canDrop} data-is-dragging={isDragging}>
+    <div className="task" ref={preview(taskRef)} data-is-over={isOver} data-is-dragging={isDragging}>
       <strong>[IT-{id}]</strong>
       <p>{content}</p>
     </div>

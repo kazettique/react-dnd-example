@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import Task from '../Task'
-import DummyTask from '../DummyTask'
 import './style.css'
 import { TASK_STATUS_NAME, ITEM_TYPE } from '../../constants'
 import { useDrop } from 'react-dnd'
@@ -11,8 +10,6 @@ export const propTypes = {
   columnList: PropTypes.array,
   columnIndex: PropTypes.number,
   columnName: PropTypes.string,
-  // changeTaskStatus: PropTypes.func,
-  // sortTaskList: PropTypes.func,
 }
 
 function Column(props) {
@@ -26,16 +23,11 @@ function Column(props) {
     drop: (item, monitor) => {
       const didDrop = monitor.didDrop()
       if (didDrop) return
-      // console.log(item)
-      // console.log(monitor.getItem())
       const sourceTaskIndex = monitor.getItem().taskIndex
       const sourceColumnIndex = monitor.getItem().columnIndex
       const targetColumnIndex = columnIndex
       addToTaskList({ sourceTaskIndex, sourceColumnIndex, targetColumnIndex })
     },
-    // hover: (item, monitor) => {
-    //   console.log('hello')
-    // },
     canDrop: (item, monitor) => {
       return monitor.getItem().columnIndex !== columnIndex
     },
@@ -54,7 +46,6 @@ function Column(props) {
       {columnList.map((task, taskIndex) => {
         return <Task key={task.id} task={task} columnIndex={columnIndex} taskIndex={taskIndex} />
       })}
-      <DummyTask />
     </div>
   )
 }

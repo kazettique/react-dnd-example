@@ -10,10 +10,10 @@
   padding: 10px;
 }
 
-.task[data-is-over="true"] {
+/* .task[data-is-over="true"] { */
   /* background: lightgreen; */
-  border-top: 3px solid lightslategrey;
-}
+  /* border-top: 3px solid lightslategrey; */
+/* } */
 
 .task[data-is-dragging="true"] {
   opacity: 0.5;
